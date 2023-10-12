@@ -30,8 +30,8 @@ def close_win():
   
   
 def resize_image():
-    cap.set(0,400)
-    cap.set(0,400)
+    cap.set(4,1920)# width dimintions
+    cap.set(4,1080) # hight dimintions
 
 
 
@@ -100,8 +100,7 @@ face_classifier = cv2.CascadeClassifier("cascade//haarcascade_frontalface_defaul
      
 cap = cv2.VideoCapture(0)  
 
-cap.set(4,480)# width dimintions
-cap.set(4,640) # hight dimintions
+resize_image()
 
 
 background_image=cv2.imread("images//back.png")
