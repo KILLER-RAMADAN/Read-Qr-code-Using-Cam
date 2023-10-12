@@ -3,7 +3,7 @@ from pyzbar.pyzbar import decode
 import webbrowser
 import tkinter as tk
 from datetime import datetime
-
+import numpy as np
 
 
 def record_url(url):
@@ -89,37 +89,59 @@ def tkinter_win(url):
     
     
     root.mainloop()
+
+
+face_classifier = cv2.CascadeClassifier("cascade//haarcascade_frontalface_default.xml")
+
+
+
+
  
-
-
-
-        
      
 cap = cv2.VideoCapture(0)  
 
-resize_image() 
+cap.set(4,480)# width dimintions
+cap.set(4,640) # hight dimintions
+
+
+background_image=cv2.imread("images//back.png")
 count=0
+
+
+def detect_bounding_box(vid):
+    gray_image = cv2.cvtColor(vid, cv2.COLOR_BGR2GRAY)
+    faces = face_classifier.detectMultiScale(
+        gray_image, 1.1, 5, minSize=(40, 40))
+    for (x, y, w, h) in faces:
+        cv2.rectangle(vid, (x, y), (x + w, y + h), (0, 255, 0), 4)
+    return faces
 
 while True:
     _, img = cap.read()
+    
+    
+    background_image[180:180+480,55:55+640]=img 
+    
+    faces=detect_bounding_box(img)
+
 
     for barcode in decode(img):
-        global mydata
-        mydata = barcode.data.decode('utf-8')
-        barcodeType = barcode.type
-        (x, y, w, h) = barcode.rect
-        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 128, 0), 2)
-        text = f"{mydata}\tBarcode-Type= {barcodeType}"
+         
+         global mydata
+         mydata = barcode.data.decode('utf-8')
+         barcodeType = barcode.type
+         (x, y, w, h) = barcode.rect
+         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 128, 0), 2)
+         text = f"{mydata}\tBarcode-Type= {barcodeType}"
+         cv2.putText(img, text, (x, y - 10),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+         count+=1
+         tkinter_win(mydata)
         
-        count+=1
-        tkinter_win(mydata)
-        
-        
-        
-        cv2.putText(img, text, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
     
 
-    cv2.imshow('BarCode Reader', img)
+
+    cv2.imshow('BarCode Reader', background_image)
     cv2.waitKey(1)
     key = cv2.waitKey(20)
     if key == ord("q") or key==ord("Q") : # exit on ESC
