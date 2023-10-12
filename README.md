@@ -1,6 +1,8 @@
 # Read-Qr-code-Using-Cam
 
-# install all libraries from "lai.txt" by run this command 👇 "pip install -r lai.txt"
+# install all libraries from "lai.txt" by run this command 👇 
+
+# "pip install -r lai.txt"
 
 # run "main.py" To Run Program
 
