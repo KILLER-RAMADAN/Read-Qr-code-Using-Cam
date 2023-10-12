@@ -1,1 +1,3 @@
 [1]=>https://wa.me/message/7DFDOESQVSKVD1?src=qr	[2023-10-12 15:27:22 PM]
+
+[1]=>otpauth://totp/GitHub:KILLER-RAMADAN?secret=IMM3AGCQXHWWQ3J2&issuer=GitHub	[2023-10-12 15:40:37 PM]
