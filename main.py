@@ -131,20 +131,20 @@ while True:
          barcodeType = barcode.type
          (x, y, w, h) = barcode.rect
          cv2.rectangle(img, (x, y), (x + w, y + h), (0, 128, 0), 2)
-         text = f"{mydata}\tBarcode-Type= {barcodeType}"
-         cv2.putText(img, text, (x, y - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        #  text = f"{mydata}\tBarcode-Type= {barcodeType}"
+        #  cv2.putText(img, text, (x, y - 10),
+        #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
          count+=1
-         tkinter_win(mydata)
+        #  tkinter_win(mydata)
         
     
 
 
     cv2.imshow('BarCode Reader', background_image)
     cv2.waitKey(1)
-    key = cv2.waitKey(20)
-    if key == ord("q") or key==ord("Q") : # exit on ESC
-        break
+    k = cv2.waitKey(100) & 0xff
+    if k == 27:
+       break
 
 
 
